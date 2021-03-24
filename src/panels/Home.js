@@ -7,11 +7,12 @@ import Group from '@vkontakte/vkui/dist/components/Group/Group';
 import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
+import './Home.css';
 
-const Home = ({ id, go, fetchedUser }) => (
-	<Panel id={id}>
-		<PanelHeader>Example</PanelHeader>
-		{fetchedUser &&
+const Home = ({ id, go, fetchedUser, base }) => (
+	<Panel className="main_panel" id={id}>
+		<PanelHeader>Азбука фиалковода</PanelHeader>
+		{false && fetchedUser &&
 		<Group title="User Data Fetched with VK Bridge">
 			<Cell
 				before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
@@ -21,13 +22,20 @@ const Home = ({ id, go, fetchedUser }) => (
 			</Cell>
 		</Group>}
 
-		<Group title="Navigation Example">
-			<Div>
-				<Button size="xl" level="2" onClick={go} data-to="persik">
-					Show me the Persik, please
-				</Button>
-			</Div>
-		</Group>
+		{base.map((rub)=>
+
+			<div key={rub.topic.id}>
+				<div className="link_h" >{rub.topic.text}</div><ul>
+
+				{rub.items && rub.items.map((master) => <div className="link_m" key={rub.topic.id+master.id}><li><a target="_blank" href={'https://vk.com/fialki_sp?w=wall-140940_'+master.post_id}>{master.post_text}</a></li></div>)}
+
+			</ul></div>
+
+
+
+		)
+		}
+
 	</Panel>
 );
 
